@@ -1,0 +1,46 @@
+#SKHD STUFF
+
+# if you're having troubles finding key codes for a key just type skhd --observe in a terminal and type a key. Pretty cool! Or just check the wiki.
+
+## HYPER == SHIFT + CMD + ALT + OPTION
+
+## Quickly restart the yabai launch agent
+ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+cmd + shift - return : osascript $HOME/Scripts/new-iterm-window.scpt 
+
+# close window
+hyper - backspace : $(yabai -m window $(yabai -m query --windows --window | jq -re ".id") --close)
+
+# Navigation
+hyper - h : yabai -m window --focus west
+hyper - j : yabai -m window --focus south
+hyper - k : yabai -m window --focus north
+hyper - l : yabai -m window --focus east
+
+## rotate tree 90
+hyper - r : yabai -m space --rotate 90
+
+# Float and center window
+hyper - c : yabai -m window --toggle float;\
+                yabai -m window --grid 4:4:1:1:2:2
+
+# Float / Unfloat window
+hyper - space : yabai -m window --toggle float
+
+# Make fullscreen
+hyper - f : yabai -m window --toggle zoom-fullscreen
+
+# increase window size
+shift + cmd - h : yabai -m window --resize left:-20:0
+shift + cmd - j : yabai -m window --resize bottom:0:20
+shift + cmd - k : yabai -m window --resize top:0:-20
+shift + cmd - l : yabai -m window --resize right:20:0
+
+# Move focus container to workspace
+hyper - 1 : yabai -m window --space 1
+hyper - 2 : yabai -m window --space 2
+hyper - 3 : yabai -m window --space 3
+hyper - 4 : yabai -m window --space 4
+hyper - 5 : yabai -m window --space 5
+hyper - 6 : yabai -m window --space 6
+hyper - 7 : yabai -m window --space 7

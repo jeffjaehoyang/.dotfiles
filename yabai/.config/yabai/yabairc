@@ -1,0 +1,69 @@
+#!/usr/bin/env sh
+#YABAI STUFF
+
+# USE THIS LINK FOR COLORS: https://convertingcolors.com/hex-color-D7E623.html?search=Hex(D7E623)
+
+# focus on another element in window after closing window or terminating app
+yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+
+# float system preferences. Most of these just diable Yabai form resizing them.
+yabai -m rule --add app="^System Preferences$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Karabiner-Elements$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Karabiner-EventViewer$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Finder$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Alfred Preferences$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Disk Utility$" sticky=on layer=above manage=off
+yabai -m rule --add app="^KakaoTalk$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Messages$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Calendar$" layer=above manage=off
+yabai -m rule --add app="^System Information$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Activity Monitor$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Path Finder$" manage=off
+yabai -m rule --add app="^console$" manage=off
+yabai -m rule --add app="^zoom.us$" manage=off
+yabai -m rule --add app="^Notes$" manage=off
+yabai -m rule --add app="^Spark$" manage=off
+yabai -m rule --add app="^Calculator$" manage=off
+yabai -m rule --add app="^ExpressVPN$" manage=off
+yabai -m rule --add app="^Archive Utility$" manage=off
+yabai -m rule --add app="^Riot Client$" layer=above manage=off
+yabai -m rule --add app="^League of Legends$" layer=above manage=off
+yabai -m rule --add app="^Todoist$" layer=above manage=off
+
+# New window spawns to the right if vertical split, or bottom if horizontal split
+yabai -m config window_placement second_child
+yabai -m config window_topmost off
+yabai -m config window_opacity off
+yabai -m config window_opacity_duration 0.00
+yabai -m config active_window_opacity 1.0
+
+## WITH SIP ENABLED (Installed Limelight seperately, Don't need this)
+# yabai -m config window_border off
+
+## WTIH SIP DISABLED (Limelight build into Yabai, enable it here)
+yabai -m config window_border on
+yabai -m config window_border_width 3
+yabai -m config active_window_border_color 0xFF3B99F2
+yabai -m config normal_window_border_color 0xFF7C7C7C 
+yabai -m config insert_feedback_color        0xffd75f5f
+
+## some other settings
+yabai -m config auto_balance off
+yabai -m config split_ratio 0.50
+# # set mouse interaction modifier key (default: fn)
+yabai -m config mouse_modifier ctrl
+# set modifier + right-click drag to resize window (default: resize)
+yabai -m config mouse_action2 resize
+# set modifier + left-click drag to resize window (default: move)
+
+## Change how yabai looks
+yabai -m config layout bsp
+yabai -m config top_padding 0
+yabai -m config bottom_padding 0
+yabai -m config left_padding 0
+yabai -m config right_padding 0
+yabai -m config window_gap 8
+
+echo "yabai configuration loaded.."
+#END
