@@ -108,6 +108,9 @@ endif
 " attempt to autoformat buffers
 autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
 
+" netrw instead of nerdtree
+map <leader>nn :Explore<cr>
+
 " if you want to do stuff like setting background images
 hi Normal ctermbg=NONE
 hi SignColumn ctermbg=none ctermfg=none guifg=none guibg=none

@@ -66,9 +66,9 @@ call plug#end()
 
 " source vim files
 source ~/.config/nvim/plugins/base.vim
-source ~/.config/nvim/plugins/nerdtree.vim
 source ~/.config/nvim/plugins/telescope.vim
 source ~/.config/nvim/plugins/tabline.vim
+" source ~/.config/nvim/plugins/nerdtree.vim
 
 " meta specific
 lua require("meta")
