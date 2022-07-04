@@ -23,7 +23,7 @@ alias sourcezsh="source ~/.zshrc"
 alias vim="nvim"
 alias v="nvim"
 alias c="clear"
-alias ls="ls -al"
+alias ls="ls -a"
 alias zshcustom="vim $HOME/.oh-my-zsh/custom/my_patches.zsh"
 
 export TERM="xterm-256color"
