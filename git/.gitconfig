@@ -1,0 +1,7 @@
+[user]
+	name = Jeff Yang
+	email = jho.yang96@gmail.com
+[core]
+	editor = nvim
+[init]
+	defaultBranch = main
