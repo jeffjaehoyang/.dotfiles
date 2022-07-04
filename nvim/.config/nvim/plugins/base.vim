@@ -105,6 +105,8 @@ if exists('+termguicolors')
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
+" attempt to autoformat buffers
+autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
 
 " if you want to do stuff like setting background images
 hi Normal ctermbg=NONE

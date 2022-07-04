@@ -1,5 +1,5 @@
-local function Liverpool()
-    return [[YNWA]]
+local function prefix()
+    return [[jjeffyang]]
 end
 
 require("lualine").setup {
@@ -16,7 +16,7 @@ require("lualine").setup {
         lualine_a = {"mode"},
         lualine_b = {"branch", "diagnostics"},
         lualine_c = {"diff", "filename"},
-        lualine_x = {Liverpool, "encoding", "fileformat", "filetype"},
+        lualine_x = {prefix, "encoding", "fileformat", "filetype"},
         lualine_y = {"hostname"},
         lualine_z = {"location"}
     },

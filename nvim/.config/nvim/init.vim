@@ -31,6 +31,7 @@ Plug 'flazz/vim-colorschemes'
 
 " fantastic fuzzy finder and dependencies
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
 
@@ -38,10 +39,11 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'tpope/vim-commentary'
 
 " nerdtree yes
-Plug 'preservim/nerdtree'
+" Plug 'preservim/nerdtree'
 
 " auto pairing for brackets
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
+Plug 'windwp/nvim-autopairs'
 
 " a ton of language syntax support loaded on-demand
 Plug 'sheerun/vim-polyglot'
@@ -50,11 +52,11 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'lewis6991/gitsigns.nvim'
 
-" hacklang
-Plug 'hhvm/vim-hack'
-
 " tree-sitter
 Plug 'nvim-treesitter/nvim-treesitter'
+
+" meta
+Plug '/usr/share/fb-editor-support/nvim'
 
 call plug#end()
 
@@ -68,9 +70,15 @@ source ~/.config/nvim/plugins/nerdtree.vim
 source ~/.config/nvim/plugins/telescope.vim
 source ~/.config/nvim/plugins/tabline.vim
 
+" meta specific
+lua require("meta")
+lua require("meta.cmds")
+
 " source lua files
 lua require("jeffyang.null-ls")
-lua require("jeffyang.lsp-config")
+lua require("jeffyang.meta-lsp-config")
+lua require("jeffyang.telescope-config")
 lua require("jeffyang.nvim-cmp")
 lua require("jeffyang.lua-line")
 lua require("jeffyang.git-signs")
+lua require("jeffyang.nvim-autopairs")
