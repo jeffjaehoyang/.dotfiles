@@ -27,6 +27,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 
 " colorschemes
 Plug 'gruvbox-community/gruvbox'
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'flazz/vim-colorschemes'
 
 " fantastic fuzzy finder and dependencies
@@ -50,9 +51,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-fugitive'
 Plug 'lewis6991/gitsigns.nvim'
 
-" hacklang
-Plug 'hhvm/vim-hack'
-
 " tree-sitter
 Plug 'nvim-treesitter/nvim-treesitter'
 
@@ -70,7 +68,10 @@ source ~/.config/nvim/plugins/tabline.vim
 
 " source lua files
 " lua require("jeffyang.null-ls")
-lua require("jeffyang.lsp-config")
 lua require("jeffyang.nvim-cmp")
+lua require("jeffyang.lsp-config")
 lua require("jeffyang.lua-line")
 lua require("jeffyang.git-signs")
+lua require("jeffyang.colors")
+
+

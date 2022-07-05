@@ -86,15 +86,6 @@ set guicursor=i:block
 set guicursor+=n-v-i-c:blinkon1
 
 try
-  colorscheme gruvbox
-catch
-endtry
-
-let g:gruvbox_contrast_dark = 'hard'
-let g:gruvbox_invert_selection='0'
-set background=dark
-
-try
   set switchbuf=useopen,usetab,newtab
   set stal=2
 catch
@@ -106,35 +97,9 @@ if exists('+termguicolors')
 endif
 
 
-" if you want to do stuff like setting background images
-hi Normal ctermbg=NONE
-hi SignColumn ctermbg=none ctermfg=none guifg=none guibg=none
-hi LineNr ctermbg=none guibg=none
-
-" Git Signs stuff
-hi GitSignsAdd ctermbg=None ctermfg=green
-hi GitSignsChange ctermbg=None ctermfg=blue
-hi GitSignsDelete ctermbg=None ctermfg=red
-
-hi LineNr ctermfg=074
-hi WinSeparator guibg=NONE
-
-" lsp diagnostics error text color
-hi DiagnosticError guifg=Red ctermbg=None
-
-" lsp diagnostics sign column bg color transparent
-hi DiagnosticSignError ctermbg=None
-hi DiagnosticSignWarn ctermbg=None
-hi DiagnosticSignHint ctermbg=None
-hi DiagnosticSignInfo ctermbg=None
-
-
 if $COLORTERM == 'gnome-terminal'
   set t_Co=256
 endif
-
-" highlight in grey
-hi Visual cterm=none ctermbg=242
 
 " Smart way to move between windows
 nnoremap <silent> <S-J> <C-W>j

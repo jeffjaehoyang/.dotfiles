@@ -1,12 +1,12 @@
-local function Liverpool()
-    return [[YNWA]]
+local function jeffyang()
+    return [[jeffyang]]
 end
 
 require("lualine").setup {
     options = {
         icons_enabled = true,
-        theme = "gruvbox-material",
-        component_separators = {left = "❭", right = "❭"},
+        theme = "auto",
+        component_separators = {left = "/", right = "/"},
         section_separators = {left = "", right = ""},
         disabled_filetypes = {},
         always_divide_middle = true,
@@ -16,7 +16,7 @@ require("lualine").setup {
         lualine_a = {"mode"},
         lualine_b = {"branch", "diagnostics"},
         lualine_c = {"diff", "filename"},
-        lualine_x = {Liverpool, "encoding", "fileformat", "filetype"},
+        lualine_x = {jeffyang, "encoding", "fileformat", "filetype"},
         lualine_y = {"hostname"},
         lualine_z = {"location"}
     },
