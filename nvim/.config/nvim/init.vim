@@ -84,7 +84,7 @@ lua require("jeffyang.telescope")
 "meta specific config
 if g:machine_env == "work" && g:is_linux
   lua require("meta")
-  lua require("meta.cmd")
+  lua require("meta.cmds")
   lua require("jeffyang.meta-lsp-config")
   lua require("jeffyang.null-ls")
 end
