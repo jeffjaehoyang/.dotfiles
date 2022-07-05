@@ -69,7 +69,7 @@ source ~/.config/nvim/plugins/telescope.vim
 source ~/.config/nvim/plugins/tabline.vim
 
 " source lua files
-lua require("jeffyang.null-ls")
+" lua require("jeffyang.null-ls")
 lua require("jeffyang.lsp-config")
 lua require("jeffyang.nvim-cmp")
 lua require("jeffyang.lua-line")
