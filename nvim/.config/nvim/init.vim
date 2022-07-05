@@ -1,9 +1,13 @@
 " (N)Vim Configuration File
-" vim  : place in $HOME/.vimrc
-" nvim : place in $HOME/.config/dotfiles/nvim/init.vim
-" $ ln -s $HOME/.config/dotfiles/nvim/init.vim $HOME/.vimrc
-" $ ln -s $HOME/.config/dotfiles/nvim/init.vim $HOME/.config/nvim/init.vim
-" $ ln -s $HOME/.config/dotfiles/nvim/lua $HOME/.config/nvim/lua
+
+" i need a way to differentiate between work and personal env
+let g:username = $USER
+
+if username == 'jeffyang'
+  let g:machine_env = "personal"
+else
+  let g:machine_env = "work"
+end
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -54,6 +58,11 @@ Plug 'lewis6991/gitsigns.nvim'
 " tree-sitter
 Plug 'nvim-treesitter/nvim-treesitter'
 
+" only need meta stuff for work machine
+if g:machine_env == "work"
+  Plug '/usr/share/fb-editor-support/nvim'
+end
+
 call plug#end()
 
 """"""""""""""""""""""
@@ -62,16 +71,20 @@ call plug#end()
 
 " source vim files
 source ~/.config/nvim/plugins/base.vim
-source ~/.config/nvim/plugins/nerdtree.vim
-source ~/.config/nvim/plugins/telescope.vim
 source ~/.config/nvim/plugins/tabline.vim
 
 " source lua files
-" lua require("jeffyang.null-ls")
 lua require("jeffyang.nvim-cmp")
 lua require("jeffyang.lsp-config")
 lua require("jeffyang.lua-line")
 lua require("jeffyang.git-signs")
 lua require("jeffyang.colors")
+lua require("jeffyang.telescope")
 
-
+"meta specific config
+if g:machine_env == "work" && g:is_linux
+  lua require("meta")
+  lua require("meta.cmd")
+  lua require("jeffyang.meta-lsp-config")
+  lua require("jeffyang.null-ls")
+end

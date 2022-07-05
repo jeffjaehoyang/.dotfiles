@@ -1,11 +1,8 @@
 -- from https://github.com/jdhao/nvim-config
 --
+local M = {}
 local api = vim.api
 local lsp = vim.lsp
-
-local utils = require("jeffyang.utils")
-
-local M = {}
 
 function M.show_line_diagnostics()
     local opts = {
@@ -18,152 +15,59 @@ function M.show_line_diagnostics()
     vim.diagnostic.open_float(nil, opts)
 end
 
-local custom_attach = function(client, bufnr)
-    local function buf_set_keymap(...) api.nvim_buf_set_keymap(bufnr, ...) end
-
-    -- Mappings.
-    local opts = {noremap = true, silent = true}
-    buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
-    buf_set_keymap("n", "<C-]>", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
-    buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
-    buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>",
-                   opts)
-    buf_set_keymap("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-    buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-    buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-    buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
-    buf_set_keymap("n", "<leader>q",
-                   "<cmd>lua vim.diagnostic.setqflist({open = true})<CR>", opts)
-    buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>",
-                   opts)
-
-    -- Set some key bindings conditional on server capabilities
-    -- if client.resolved_capabilities.document_formatting then
-    --     buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting_sync()<CR>", opts)
-    -- end
-    -- if client.resolved_capabilities.document_range_formatting then
-    --     buf_set_keymap("x", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR><ESC>", opts)
-    -- end
-
-    -- The blow command will highlight the current variable and its usages in the buffer.
-    if client.resolved_capabilities.document_highlight then
-        vim.cmd([[
-      hi! link LspReferenceRead Visual
-      hi! link LspReferenceText Visual
-      hi! link LspReferenceWrite Visual
-      augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]])
-    end
-
-    if vim.g.logging_level == "debug" then
-        local msg = string.format("Language server %s started!", client.name)
-        vim.notify(msg, "info", {title = "Nvim-config"})
-    end
-end
-
 local capabilities = lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+M.capabilities = capabilities
 
-local lspconfig = require("lspconfig")
-
-if utils.executable("pylsp") then
-    lspconfig.pylsp.setup({
-        on_attach = custom_attach,
-        settings = {
-            pylsp = {
-                plugins = {
-                    pylint = {enabled = true, executable = "pylint"},
-                    pyflakes = {enabled = false},
-                    pycodestyle = {enabled = false},
-                    jedi_completion = {fuzzy = true},
-                    pyls_isort = {enabled = true},
-                    pylsp_mypy = {enabled = true}
-                }
-            }
-        },
-        flags = {debounce_text_changes = 200},
-        capabilities = capabilities
-    })
-else
-    vim.notify("pylsp not found!", "warn", {title = "Nvim-config"})
+local function config(_config)
+    return vim.tbl_deep_extend("force", {
+            capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+            on_attach = function()
+                nnoremap("gd", function() vim.lsp.buf.definition() end)
+                nnoremap("K", function() vim.lsp.buf.hover() end)
+                nnoremap("<leader>q", function() vim.diagnostic.setqflist({open = true}) end)
+                nnoremap("<leader>vd", function() vim.diagnostic.open_float() end)
+                nnoremap("[d", function() vim.diagnostic.goto_prev() end)
+                nnoremap("]d", function() vim.diagnostic.goto_next() end)
+                nnoremap("<leader>ca", function() vim.lsp.buf.code_action() end)
+                nnoremap("<leader>gr", function() vim.lsp.buf.references() end)
+                nnoremap("<leader>r", function() vim.lsp.buf.rename() end)
+                inoremap("<C-h>", function() vim.lsp.buf.signature_help() end)
+            end,
+        }, _config or {})
 end
 
-if utils.executable("ccls") then
-    lspconfig.ccls.setup({
-        on_attach = custom_attach,
-        capabilities = capabilities,
-        filetypes = {"c", "cpp", "cc"},
-        flags = {debounce_text_changes = 500}
-    })
-else
-    vim.notify("ccls not found!", "warn", {title = "Nvim-config"})
-end
+local lsp_config = require("lspconfig")
 
-if utils.executable("tsserver") then
-    lspconfig.tsserver.setup({
-        on_attach = custom_attach,
-        capabilities = capabilities
-    })
-end
+lsp_config.tsserver.setup(config())
 
--- https://blog.inkdrop.app/how-to-set-up-neovim-0-5-modern-plugins-lsp-treesitter-etc-542c3d9c9887
-lspconfig.diagnosticls.setup {
-    on_attach = custom_attach,
-    capabilities = capabilities,
-    filetypes = {
-        "javascript", "javascriptreact", "javascript.jsx", "json", "typescript",
-        "typescriptreact", "typescript.tsx", "css", "less", "scss", "markdown",
-        "pandoc"
-    },
-    init_options = {
-        linters = {
-            eslint = {
-                command = "eslint_d",
-                rootPatterns = {".git"},
-                debounce = 100,
-                args = {
-                    "--stdin", "--stdin-filename", "%filepath", "--format",
-                    "json"
-                },
-                sourceName = "eslint_d",
-                parseJson = {
-                    errorsRoot = "[0].messages",
-                    line = "line",
-                    column = "column",
-                    endLine = "endLine",
-                    endColumn = "endColumn",
-                    message = "[eslint] ${message} [${ruleId}]",
-                    security = "severity"
-                },
-                securities = {[2] = "error", [1] = "warning"}
-            }
-        },
-        filetypes = {
-            javascript = "eslint",
-            javascriptreact = "eslint",
-            ["javascript.jsx"] = "eslint",
-            typescript = "eslint",
-            typescriptreact = "eslint",
-            ["typescript.tsx"] = "eslint"
-        }
-    }
-}
+lsp_config.ccls.setup(config())
 
--- set up vim-language-server
-if utils.executable("vim-language-server") then
-    lspconfig.vimls.setup({
-        on_attach = custom_attach,
-        flags = {debounce_text_changes = 500},
-        capabilities = capabilities
-    })
-else
-    vim.notify("vim-language-server not found!", "warn", {title = "Nvim-config"})
-end
+lsp_config.jedi_language_server.setup(config())
+
+lsp_config.cssls.setup(config())
+
+lsp_config.gopls.setup(config({
+	cmd = { "gopls", "serve" },
+	settings = {
+		gopls = {
+			analyses = {
+				unusedparams = true,
+			},
+			staticcheck = true,
+		},
+	},
+}))
+
+-- who even uses this?
+lsp_config.rust_analyzer.setup(config({
+	cmd = { "rustup", "run", "nightly", "rust-analyzer" },
+}))
+
+lsp_config['vim-language-server'].setup(config({
+  flags = {debounce_text_changes = 500}
+}))
 
 -- local sumneko_binary_path = vim.fn.exepath("lua-language-server")
 local sumneko_root_path = "/Users/jeffyang/.config/nvim/lua-language-server"
@@ -175,7 +79,7 @@ if vim.g.is_mac or vim.g.is_linux and sumneko_root_path ~= "" then
     table.insert(runtime_path, "lua/?.lua")
     table.insert(runtime_path, "lua/?/init.lua")
 
-    lspconfig.sumneko_lua.setup({
+    lsp_config.sumneko_lua.setup({
         on_attach = custom_attach,
         cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
         settings = {
@@ -204,9 +108,9 @@ end
 
 local signs = {
     {name = "DiagnosticSignError", text = "Ε"},
-    {name = "DiagnosticSignWarn", text = "!"},
-    {name = "DiagnosticSignHint", text = ""},
-    {name = "DiagnosticSignInfo", text = ""}
+    {name = "DiagnosticSignWarn", text = "W"},
+    {name = "DiagnosticSignHint", text = "H"},
+    {name = "DiagnosticSignInfo", text = "I"}
 }
 
 for _, sign in ipairs(signs) do

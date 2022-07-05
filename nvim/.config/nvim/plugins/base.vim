@@ -1,22 +1,17 @@
-" easy way to source init.vim file
-nnoremap <leader><CR> :so ~/.config/nvim/init.vim<CR>
-
-"{ Global Variable
-"{{ Custom variables
 let g:is_win = (has('win32') || has('win64')) ? v:true : v:false
 let g:is_linux = (has('unix') && !has('macunix')) ? v:true : v:false
 let g:is_mac = has('macunix') ? v:true : v:false
 let g:logging_level = 'info'
-"}}
-"
-let mapleader = ","
-nmap <leader>w :w<cr>
 
 syntax on
 filetype plugin indent on
 syntax enable
-
 set path+=**
+
+" easy way to source init.vim file
+nnoremap <leader><CR> :so ~/.config/nvim/init.vim<CR>
+let mapleader = ","
+nmap <leader>w :w<cr>
 
 " Ignore certain files and folders when globing
 " Ignore files
@@ -101,6 +96,12 @@ if $COLORTERM == 'gnome-terminal'
   set t_Co=256
 endif
 
+" attempt to autoformat buffers
+autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
+
+" netrw instead of nerdtree
+map <leader>nn :Explore<cr>
+
 " Smart way to move between windows
 nnoremap <silent> <S-J> <C-W>j
 nnoremap <silent> <S-K> <C-W>k
@@ -147,6 +148,7 @@ augroup loadFiletypeSettings
   autocmd Filetype hack       setlocal shiftwidth=2 tabstop=2
   autocmd Filetype c          setlocal shiftwidth=4 tabstop=4
   autocmd Filetype cpp        setlocal shiftwidth=4 tabstop=4
+  autocmd Filetype lua        setlocal shiftwidth=4 tabstop=4
 augroup END
 
 " Return to last edit position when opening files (You want this!)
@@ -221,9 +223,6 @@ function! VisualSelection(direction, extra_filter) range
   let @/ = l:pattern
   let @" = l:saved_reg
 endfunction
-
-" => Fast editing and reloading of vimrc configs
-autocmd! bufwritepost ~/.vimrc source ~/.vimrc
 
 let g:python3_host_prog='/usr/local/bin/python3'
 " Add the virtualenv's site-packages to vim path
