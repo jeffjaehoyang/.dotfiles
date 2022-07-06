@@ -1,5 +1,3 @@
--- from https://github.com/jdhao/nvim-config
---
 local Remap = require("jeffyang.keymap")
 local nnoremap = Remap.nnoremap
 local inoremap = Remap.inoremap
@@ -11,7 +9,7 @@ local lsp = vim.lsp
 function M.show_line_diagnostics()
     local opts = {
         focusable = false,
-        close_events = {"BufLeave", "CursorMoved", "InsertEnter", "FocusLost"},
+        close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
         border = "rounded",
         source = "always", -- show source in diagnostic popup window
         prefix = " "
@@ -41,7 +39,7 @@ local function on_attach()
     nnoremap(
         "<leader>q",
         function()
-            vim.diagnostic.setqflist({open = true})
+            vim.diagnostic.setqflist({ open = true })
         end
     )
     nnoremap(
@@ -116,7 +114,7 @@ if vim.g.is_mac then
     lsp_config.gopls.setup(
         config(
             {
-                cmd = {"gopls", "serve"},
+                cmd = { "gopls", "serve" },
                 settings = {
                     gopls = {
                         analyses = {
@@ -132,7 +130,7 @@ if vim.g.is_mac then
     lsp_config.rust_analyzer.setup(
         config(
             {
-                cmd = {"rustup", "run", "nightly", "rust-analyzer"}
+                cmd = { "rustup", "run", "nightly", "rust-analyzer" }
             }
         )
     )
@@ -149,7 +147,7 @@ if vim.g.is_mac or vim.g.is_linux and sumneko_root_path ~= "" then
     lsp_config.sumneko_lua.setup(
         {
             on_attach = on_attach,
-            cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
+            cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
             settings = {
                 Lua = {
                     runtime = {
@@ -160,14 +158,14 @@ if vim.g.is_mac or vim.g.is_linux and sumneko_root_path ~= "" then
                     },
                     diagnostics = {
                         -- Get the language server to recognize the `vim` global
-                        globals = {"vim"}
+                        globals = { "vim" }
                     },
                     workspace = {
                         -- Make the server aware of Neovim runtime files
                         library = api.nvim_get_runtime_file("", true)
                     },
                     -- Do not send telemetry data containing a randomized but unique identifier
-                    telemetry = {enable = false}
+                    telemetry = { enable = false }
                 }
             },
             capabilities = capabilities
@@ -176,22 +174,22 @@ if vim.g.is_mac or vim.g.is_linux and sumneko_root_path ~= "" then
 end
 
 local signs = {
-    {name = "DiagnosticSignError", text = "Ε"},
-    {name = "DiagnosticSignWarn", text = "W"},
-    {name = "DiagnosticSignHint", text = "H"},
-    {name = "DiagnosticSignInfo", text = "I"}
+    { name = "DiagnosticSignError", text = "Ε" },
+    { name = "DiagnosticSignWarn", text = "W" },
+    { name = "DiagnosticSignHint", text = "H" },
+    { name = "DiagnosticSignInfo", text = "I" }
 }
 
 for _, sign in ipairs(signs) do
-    vim.fn.sign_define(sign.name, {texthl = sign.name, text = sign.text, numhl = ""})
+    vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
 end
 
 local diagnostics_config = {
-    virtual_text = {spacing = 1, prefix = "◼ "},
+    virtual_text = { spacing = 1, prefix = "⚈ " },
     -- show signs
-    signs = {active = signs},
+    signs = { active = signs },
     update_in_insert = true,
-    underline = true,
+    underline = false,
     severity_sort = true,
     float = {
         focus = false,
@@ -205,9 +203,5 @@ local diagnostics_config = {
 }
 
 vim.diagnostic.config(diagnostics_config)
-
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {border = "rounded"})
-
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {border = "rounded"})
 
 return M
