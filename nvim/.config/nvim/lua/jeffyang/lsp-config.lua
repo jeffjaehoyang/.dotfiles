@@ -1,5 +1,9 @@
 -- from https://github.com/jdhao/nvim-config
 --
+local Remap = require("jeffyang.keymap")
+local nnoremap = Remap.nnoremap
+local inoremap = Remap.inoremap
+
 local M = {}
 local api = vim.api
 local lsp = vim.lsp
@@ -20,54 +24,57 @@ capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 M.capabilities = capabilities
 
+local function on_attach()
+    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+    nnoremap("gd", function() vim.lsp.buf.definition() end)
+    nnoremap("K", function() vim.lsp.buf.hover() end)
+    nnoremap("<leader>q", function() vim.diagnostic.setqflist({open = true}) end)
+    nnoremap("<leader>vd", function() vim.diagnostic.open_float() end)
+    nnoremap("[d", function() vim.diagnostic.goto_prev() end)
+    nnoremap("]d", function() vim.diagnostic.goto_next() end)
+    nnoremap("<leader>ca", function() vim.lsp.buf.code_action() end)
+    nnoremap("<leader>gr", function() vim.lsp.buf.references() end)
+    nnoremap("<leader>r", function() vim.lsp.buf.rename() end)
+    inoremap("<C-h>", function() vim.lsp.buf.signature_help() end)
+end
+
 local function config(_config)
     return vim.tbl_deep_extend("force", {
             capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
-            on_attach = function()
-                nnoremap("gd", function() vim.lsp.buf.definition() end)
-                nnoremap("K", function() vim.lsp.buf.hover() end)
-                nnoremap("<leader>q", function() vim.diagnostic.setqflist({open = true}) end)
-                nnoremap("<leader>vd", function() vim.diagnostic.open_float() end)
-                nnoremap("[d", function() vim.diagnostic.goto_prev() end)
-                nnoremap("]d", function() vim.diagnostic.goto_next() end)
-                nnoremap("<leader>ca", function() vim.lsp.buf.code_action() end)
-                nnoremap("<leader>gr", function() vim.lsp.buf.references() end)
-                nnoremap("<leader>r", function() vim.lsp.buf.rename() end)
-                inoremap("<C-h>", function() vim.lsp.buf.signature_help() end)
-            end,
+            on_attach = on_attach
         }, _config or {})
 end
 
+M.on_attach = on_attach
+M.config = config
+
 local lsp_config = require("lspconfig")
 
-lsp_config.tsserver.setup(config())
+if vim.g.is_mac then
+    lsp_config.tsserver.setup(config())
 
-lsp_config.ccls.setup(config())
+    lsp_config.ccls.setup(config())
 
-lsp_config.jedi_language_server.setup(config())
+    lsp_config.jedi_language_server.setup(config())
 
-lsp_config.cssls.setup(config())
+    lsp_config.cssls.setup(config())
 
-lsp_config.gopls.setup(config({
-	cmd = { "gopls", "serve" },
-	settings = {
-		gopls = {
-			analyses = {
-				unusedparams = true,
-			},
-			staticcheck = true,
-		},
-	},
-}))
+    lsp_config.gopls.setup(config({
+	    cmd = { "gopls", "serve" },
+	    settings = {
+		    gopls = {
+			    analyses = {
+				    unusedparams = true,
+			    },
+			    staticcheck = true,
+		    },
+	    },
+    }))
 
--- who even uses this?
-lsp_config.rust_analyzer.setup(config({
-	cmd = { "rustup", "run", "nightly", "rust-analyzer" },
-}))
-
-lsp_config['vim-language-server'].setup(config({
-  flags = {debounce_text_changes = 500}
-}))
+    lsp_config.rust_analyzer.setup(config({
+	    cmd = { "rustup", "run", "nightly", "rust-analyzer" },
+    }))
+end
 
 -- local sumneko_binary_path = vim.fn.exepath("lua-language-server")
 local sumneko_root_path = "/Users/jeffyang/.config/nvim/lua-language-server"
@@ -119,7 +126,7 @@ for _, sign in ipairs(signs) do
 end
 
 local diagnostics_config = {
-    virtual_text = {spacing = 2, prefix = "◼ "},
+    virtual_text = {spacing = 1, prefix = "◼ "},
     -- show signs
     signs = {active = signs},
     update_in_insert = true,

@@ -43,7 +43,7 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'tpope/vim-commentary'
 
 " nerdtree yes
-Plug 'preservim/nerdtree'
+" Plug 'preservim/nerdtree'
 
 " auto pairing for brackets
 Plug 'jiangmiao/auto-pairs'
