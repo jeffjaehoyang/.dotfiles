@@ -15,78 +15,124 @@ function ColorMyPencils()
         vim.api.nvim_set_hl(0, thing, opts)
     end
 
-    hl("SignColumn", {
-        bg = "none",
-    })
+    hl(
+        "SignColumn",
+        {
+            bg = "none"
+        }
+    )
 
-    hl("ColorColumn", {
-        ctermbg = 0,
-        bg = "#555555",
-    })
+    hl(
+        "ColorColumn",
+        {
+            ctermbg = 0,
+            bg = "#555555"
+        }
+    )
 
-    hl("CursorLineNR", {
-        bg = "None"
-    })
+    hl(
+        "CursorLineNR",
+        {
+            bg = "None"
+        }
+    )
 
-    hl("Visual", {
-        ctermfg = "none",
-        bg = "#474747",
-    })
+    hl(
+        "Visual",
+        {
+            ctermfg = "none",
+            bg = "#474747"
+        }
+    )
 
-    hl("LineNr", {
-        fg = "#5eacd3"
-    })
+    hl(
+        "LineNr",
+        {
+            fg = "#5eacd3"
+        }
+    )
 
-    hl("netrwDir", {
-        fg = "#5eacd3"
-    })
+    hl(
+        "netrwDir",
+        {
+            fg = "#5eacd3"
+        }
+    )
 
-    hl("Comment", {
-        ctermbg = 0,
-        fg = "#707073"
-    })
+    hl(
+        "Comment",
+        {
+            ctermbg = 0,
+            fg = "#707073"
+        }
+    )
 
-    hl("WinSeperator", {
-        bg = "none"
-    })
+    hl(
+        "WinSeperator",
+        {
+            bg = "none"
+        }
+    )
 
-    hl("GitSignsAdd", {
-        ctermbg = "none",
-        fg = "green"
-    })
+    hl(
+        "GitSignsAdd",
+        {
+            ctermbg = "none",
+            fg = "green"
+        }
+    )
 
-    hl("GitSignsChange", {
-        ctermbg = "none",
-        fg = "blue"
-    })
+    hl(
+        "GitSignsChange",
+        {
+            ctermbg = "none",
+            fg = "blue"
+        }
+    )
 
-    hl("GitSignsDelete", {
-        ctermbg = "none",
-        fg = "red"
-    })
+    hl(
+        "GitSignsDelete",
+        {
+            ctermbg = "none",
+            fg = "red"
+        }
+    )
 
-    hl("DiagnosticError", {
-        ctermbg = "none",
-        fg = "red"
-    })
+    hl(
+        "DiagnosticError",
+        {
+            ctermbg = "none",
+            fg = "red"
+        }
+    )
 
-    hl("DiagnosticSignError", {
-        ctermbg = "none"
-    })
+    hl(
+        "DiagnosticSignError",
+        {
+            ctermbg = "none"
+        }
+    )
 
-    hl("DiagnosticSignWarn", {
-        ctermbg = "none"
-    })
+    hl(
+        "DiagnosticSignWarn",
+        {
+            ctermbg = "none"
+        }
+    )
 
-    hl("DiagnosticSignHint", {
-        ctermbg = "none"
-    })
+    hl(
+        "DiagnosticSignHint",
+        {
+            ctermbg = "none"
+        }
+    )
 
-    hl("DiagnosticSignInfo", {
-        ctermbg = "none"
-    })
-
+    hl(
+        "DiagnosticSignInfo",
+        {
+            ctermbg = "none"
+        }
+    )
 end
 
 ColorMyPencils()
-
