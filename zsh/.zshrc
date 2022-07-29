@@ -25,6 +25,7 @@ alias v="nvim"
 alias c="clear"
 alias ls="ls -a"
 alias zshcustom="vim $HOME/.oh-my-zsh/custom/my_patches.zsh"
+alias dv="cd ~/Developer"
 
 export TERM="xterm-256color"
 
