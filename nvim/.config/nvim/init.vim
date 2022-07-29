@@ -58,6 +58,9 @@ Plug 'lewis6991/gitsigns.nvim'
 " tree-sitter
 Plug 'nvim-treesitter/nvim-treesitter'
 
+"neoformat
+Plug 'sbdchd/neoformat'
+
 " only need meta stuff for work machine
 if g:machine_env == "work"
   Plug '/usr/share/fb-editor-support/nvim'
@@ -72,6 +75,11 @@ call plug#end()
 " source vim files
 source ~/.config/nvim/plugins/base.vim
 source ~/.config/nvim/plugins/tabline.vim
+
+" don't do neoformat stuff for meta devserver
+if g:machine_env == "work" && g:is_mac || g:machine_env == "personal"
+  source ~/.config/nvim/plugins/neoformat.vim
+end
 
 " source lua files
 lua require("jeffyang.nvim-cmp")
