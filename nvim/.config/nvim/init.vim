@@ -61,6 +61,9 @@ Plug 'nvim-treesitter/nvim-treesitter'
 "neoformat
 Plug 'sbdchd/neoformat'
 
+"harpoon
+Plug 'nvim-lua/plenary.nvim'
+
 " only need meta stuff for work machine
 if g:machine_env == "work"
   Plug '/usr/share/fb-editor-support/nvim'
