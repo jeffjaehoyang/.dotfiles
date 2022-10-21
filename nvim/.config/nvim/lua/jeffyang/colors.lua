@@ -1,4 +1,4 @@
-vim.g.jeffyang_colorscheme = "gruvbox"
+vim.g.jeffyang_colorscheme = "tokyonight"
 
 function ColorMyPencils()
     vim.g.tokyonight_transparent_sidebar = true
