@@ -96,9 +96,6 @@ if $COLORTERM == 'gnome-terminal'
   set t_Co=256
 endif
 
-" attempt to autoformat buffers
-" autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
-
 " netrw instead of nerdtree
 map <leader>nn :Explore<cr>
 

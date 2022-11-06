@@ -7,6 +7,7 @@ let g:neoformat_enabled_typescript = ['prettier']
 let g:neoformat_enabled_typescriptreact = ['prettier']
 let g:neoformat_enabled_html = ['prettier']
 let g:neoformat_enabled_css = ['prettier']
+let g:neoformat_enabled_json = ['prettier']
 
 let g:neoformat_enabled_python = ['black']
 
@@ -28,5 +29,5 @@ let g:neoformat_enabled_c = ['clangformat']
 
 augroup fmt
   autocmd!
-  autocmd BufWritePre *.py,*.lua,*.cpp,*.c,*.h,*.js,*.jsx,*.ts,*.tsx,*.css,*.html undojoin | Neoformat
+  autocmd BufWritePre *.py,*.lua,*.cpp,*.c,*.h,*.js,*.jsx,*.ts,*.tsx,*.css,*.html,*.json undojoin | Neoformat
 augroup END

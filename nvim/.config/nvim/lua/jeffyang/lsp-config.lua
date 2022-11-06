@@ -23,7 +23,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 M.capabilities = capabilities
 
 local function on_attach()
-    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+    -- vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
     nnoremap(
         "gd",
         function()

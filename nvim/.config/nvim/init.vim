@@ -2,12 +2,7 @@
 
 " i need a way to differentiate between work and personal env
 let g:username = $USER
-
-if username == 'jeffyang'
-  let g:machine_env = "personal"
-else
-  let g:machine_env = "work"
-end
+let g:machine_env = "personal"
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -15,7 +10,6 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'neovim/nvim-lspconfig'
 Plug 'glepnir/lspsaga.nvim'
 Plug 'onsails/lspkind-nvim' 
-Plug 'jose-elias-alvarez/null-ls.nvim'
 
 " completion
 Plug 'hrsh7th/nvim-cmp'
@@ -32,6 +26,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 " colorschemes
 Plug 'gruvbox-community/gruvbox'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'rose-pine/neovim'
 Plug 'flazz/vim-colorschemes'
 
 " fantastic fuzzy finder and dependencies
@@ -41,12 +36,6 @@ Plug 'nvim-lua/popup.nvim'
 
 " comment out stuff gcc
 Plug 'tpope/vim-commentary'
-
-" nerdtree yes
-" Plug 'preservim/nerdtree'
-
-" auto pairing for brackets
-Plug 'jiangmiao/auto-pairs'
 
 " a ton of language syntax support loaded on-demand
 Plug 'sheerun/vim-polyglot'
@@ -64,11 +53,6 @@ Plug 'sbdchd/neoformat'
 "harpoon
 Plug 'nvim-lua/plenary.nvim'
 
-" only need meta stuff for work machine
-if g:machine_env == "work"
-  Plug '/usr/share/fb-editor-support/nvim'
-end
-
 call plug#end()
 
 """"""""""""""""""""""
@@ -79,11 +63,6 @@ call plug#end()
 source ~/.config/nvim/plugins/base.vim
 source ~/.config/nvim/plugins/tabline.vim
 
-" don't do neoformat stuff for meta devserver
-if g:machine_env == "work" && g:is_mac || g:machine_env == "personal"
-  source ~/.config/nvim/plugins/neoformat.vim
-end
-
 " source lua files
 lua require("jeffyang.nvim-cmp")
 lua require("jeffyang.lsp-config")
@@ -91,11 +70,3 @@ lua require("jeffyang.lua-line")
 lua require("jeffyang.git-signs")
 lua require("jeffyang.colors")
 lua require("jeffyang.telescope")
-
-"meta specific config
-if g:machine_env == "work" && g:is_linux
-  lua require("meta")
-  lua require("meta.cmds")
-  lua require("jeffyang.meta-lsp-config")
-  lua require("jeffyang.null-ls")
-end
