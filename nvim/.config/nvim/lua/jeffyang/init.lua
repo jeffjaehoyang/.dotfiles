@@ -1,8 +1,9 @@
 require("jeffyang.set")
 require("jeffyang.remap")
+require("jeffyang.packer")
 
 local augroup = vim.api.nvim_create_augroup
-local ThePrimeagenGroup = augroup('ThePrimeagen', {})
+local TheJeffGroup = augroup('TheJeff', {})
 
 local autocmd = vim.api.nvim_create_autocmd
 local yank_group = augroup('HighlightYank', {})
@@ -23,7 +24,7 @@ autocmd('TextYankPost', {
 })
 
 autocmd({ "BufWritePre" }, {
-    group = ThePrimeagenGroup,
+    group = TheJeffGroup,
     pattern = "*",
     command = [[%s/\s\+$//e]],
 })
