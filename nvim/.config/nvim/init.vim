@@ -62,6 +62,7 @@ call plug#end()
 " source vim files
 source ~/.config/nvim/plugins/base.vim
 source ~/.config/nvim/plugins/tabline.vim
+source ~/.config/nvim/plugins/neoformat.vim
 
 " source lua files
 lua require("jeffyang.nvim-cmp")

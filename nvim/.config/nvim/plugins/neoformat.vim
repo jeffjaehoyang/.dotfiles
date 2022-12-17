@@ -9,25 +9,11 @@ let g:neoformat_enabled_html = ['prettier']
 let g:neoformat_enabled_css = ['prettier']
 let g:neoformat_enabled_json = ['prettier']
 
-let g:neoformat_enabled_python = ['black']
+let g:neoformat_enabled_python = ['autopep8']
 
 let g:neoformat_enabled_lua = ['luafmt']
 
-" custom setting for clangformat
-let g:neoformat_c_clangformat = {
-    \ 'exe': 'clang-format',
-    \ 'args': ['--style="{IndentWidth: 4, UseTab: Never, BreakBeforeBraces: Allman, AllowShortIfStatementsOnASingleLine: false, IndentCaseLabels: false, ColumnLimit: 120}"'],
-\}
-
-let g:neoformat_cpp_clangformat = {
-    \ 'exe': 'clang-format',
-    \ 'args': ['--style="{IndentWidth: 4, UseTab: Never, BreakBeforeBraces: Allman, AllowShortIfStatementsOnASingleLine: false, IndentCaseLabels: false, ColumnLimit: 120}"'],
-\}
-
-let g:neoformat_enabled_cpp = ['clangformat']
-let g:neoformat_enabled_c = ['clangformat']
-
 augroup fmt
   autocmd!
-  autocmd BufWritePre *.py,*.lua,*.cpp,*.c,*.h,*.js,*.jsx,*.ts,*.tsx,*.css,*.html,*.json undojoin | Neoformat
+  autocmd BufWritePre * undojoin | Neoformat
 augroup END

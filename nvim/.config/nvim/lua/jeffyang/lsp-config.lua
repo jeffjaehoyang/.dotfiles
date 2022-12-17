@@ -6,6 +6,8 @@ local M = {}
 local api = vim.api
 local lsp = vim.lsp
 
+-- vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
+
 function M.show_line_diagnostics()
     local opts = {
         focusable = false,
@@ -23,7 +25,6 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 M.capabilities = capabilities
 
 local function on_attach()
-    -- vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
     nnoremap(
         "gd",
         function()
