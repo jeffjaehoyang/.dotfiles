@@ -27,6 +27,8 @@ alias ls="ls -a"
 alias zshcustom="vim $HOME/.oh-my-zsh/custom/my_patches.zsh"
 alias dv="cd ~/Developer"
 alias boot="dev connect --connection et"
+alias lc="cd ~/Developer/leetcode"
+alias epi="cd ~/Developer/epi/epi_judge_python"
 
 export TERM="xterm-256color"
 
