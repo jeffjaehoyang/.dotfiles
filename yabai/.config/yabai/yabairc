@@ -7,7 +7,7 @@
 yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 
-# float system preferences. Most of these just diable Yabai form resizing them.
+# float system preferences. Most of these just diable Yabai resizing them.
 yabai -m rule --add app="^System Preferences$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Karabiner-Elements$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Karabiner-EventViewer$" sticky=on layer=above manage=off
@@ -42,8 +42,8 @@ yabai -m config active_window_opacity 1.0
 
 # window borders
 yabai -m config window_border on
-yabai -m config window_border_width 5
-yabai -m config active_window_border_color 0xFF003983
+yabai -m config window_border_width 8
+yabai -m config active_window_border_color 0xFF000B65
 yabai -m config normal_window_border_color 0xFF7C7C7C 
 
 ## some other settings
