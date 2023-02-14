@@ -3,6 +3,7 @@ require("jeffyang.remap")
 require("jeffyang.packer")
 
 local augroup = vim.api.nvim_create_augroup
+
 local TheJeffGroup = augroup('TheJeff', {})
 
 local autocmd = vim.api.nvim_create_autocmd

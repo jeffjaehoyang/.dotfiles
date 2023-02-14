@@ -42,7 +42,7 @@ yabai -m config active_window_opacity 1.0
 
 # window borders
 yabai -m config window_border on
-yabai -m config window_border_width 8
+yabai -m config window_border_width 6
 yabai -m config window_border_radius 0
 yabai -m window_border_blur off
 yabai -m window_border_hidpi on
