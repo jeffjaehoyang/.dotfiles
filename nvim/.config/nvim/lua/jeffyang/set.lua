@@ -30,3 +30,8 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
+
+
+-- vim.api.nvim_set_hl(0, 'LineNr', { fg = 'green' })
+-- vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = 'blue' })
+-- vim.api.nvim_set_hl(0, 'SignColumn', { fg = 'None', bg = 'None' })

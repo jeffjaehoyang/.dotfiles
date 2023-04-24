@@ -12,12 +12,17 @@ return require('packer').startup(function(use)
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
+    -- colorschemes
     use({
         'rose-pine/neovim',
         as = 'rose-pine',
     })
-
     use { "ellisonleao/gruvbox.nvim" }
+    use { "w0ng/vim-hybrid" }
+    use { "habamax/vim-habanight" }
+    use { "mikesmithgh/gruvsquirrel.nvim" }
+    use { "novasenco/nokto" }
+    use { "AlxHnr/clear_colors" }
 
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
     use { 'nvim-treesitter/playground' }
@@ -50,8 +55,8 @@ return require('packer').startup(function(use)
             { 'rafamadriz/friendly-snippets' },
         }
     }
+    use { 'jose-elias-alvarez/null-ls.nvim' }
 
     use { "eandrju/cellular-automaton.nvim" }
     use { 'JoosepAlviste/nvim-ts-context-commentstring' }
-
 end)

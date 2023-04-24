@@ -3,9 +3,10 @@ local lsp = require("lsp-zero")
 lsp.preset("recommended")
 
 lsp.ensure_installed({
+    'pyright',
     'tsserver',
     'eslint',
-    'sumneko_lua',
+    'lua_ls',
     'rust_analyzer',
 })
 
@@ -22,7 +23,19 @@ lsp.set_preferences({
     }
 })
 
+
 lsp.on_attach(function(client, bufnr)
+    -- auto formatting
+    vim.api.nvim_create_autocmd("BufWritePre",
+        {
+            group = vim.api.nvim_create_augroup("Format", { clear = true }),
+            buffer = bufnr,
+            callback = function()
+                vim.lsp.buf.format()
+            end
+        }
+    )
+
     local opts = { buffer = bufnr, remap = false }
 
     if client.name == "eslint" then
@@ -43,6 +56,19 @@ lsp.on_attach(function(client, bufnr)
 end)
 
 lsp.setup()
+
+-- for LSPs that do not support formatting (e.g. pyright)
+-- null-ls can be the bridge that helps us autoformat on save
+local null_ls = require("null-ls")
+
+null_ls.setup({
+    sources = {
+        null_ls.builtins.formatting.black,
+        null_ls.builtins.formatting.rustfmt,
+        null_ls.builtins.formatting.prettier,
+        null_ls.builtins.formatting.stylua,
+    },
+})
 
 vim.diagnostic.config({
     virtual_text = true,

@@ -34,10 +34,6 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
-vim.api.nvim_create_autocmd("BufWritePre",
-    { group = vim.api.nvim_create_augroup("Format", { clear = true }), buffer = bufnr,
-        callback = function() vim.lsp.buf.format() end })
-
 -- Smart way to move between windows
 vim.keymap.set("n", "<S-J>", "<C-W>j", { silent = true })
 vim.keymap.set("n", "<S-K>", "<C-W>k", { silent = true })
