@@ -23,6 +23,7 @@ return require('packer').startup(function(use)
     use { "mikesmithgh/gruvsquirrel.nvim" }
     use { "novasenco/nokto" }
     use { "AlxHnr/clear_colors" }
+    use { "rebelot/kanagawa.nvim" }
 
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
     use { 'nvim-treesitter/playground' }
